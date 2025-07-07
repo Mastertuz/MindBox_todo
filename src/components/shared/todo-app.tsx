@@ -7,6 +7,7 @@ import { TodoList } from "../shared/todo-list"
 import { useTodos } from "../../hooks/use-todos"
 import type { FilterType } from "../../types/todo"
 import { ModeToggle } from '../shared/mode-toggle'
+import Loader from "./loader"
 
 function TodoApp() {
   const {
@@ -27,16 +28,7 @@ function TodoApp() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardContent className="flex items-center justify-center p-8">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Загрузка задач...</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Loader/>
     )
   }
 
@@ -45,7 +37,7 @@ function TodoApp() {
       <div className="w-full max-w-2xl relative">
         <Card>
           <CardHeader>
-            <CardTitle className="text-center text-2xl font-bold">ToDo Приложение</CardTitle>
+            <CardTitle className="text-center text-2xl font-bold max-sm:text-xl max-sm:text-start">ToDo Приложение</CardTitle>
             <div className="absolute right-7">
             <ModeToggle/>
             </div>
@@ -54,7 +46,7 @@ function TodoApp() {
           <CardContent className="space-y-6">
             <TodoInput onAdd={addTodo} />
 
-            <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center justify-between flex-wrap gap-2 max-sm:gap-4">
               <div className="flex gap-2">
                 <Badge variant="secondary">Всего: {stats.total}</Badge>
                 <Badge variant="outline">Активных: {stats.active}</Badge>
@@ -86,14 +78,14 @@ function TodoApp() {
             </div>
 
             <Tabs value={filter} onValueChange={handleFilterChange}>
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger className="cursor-pointer" value="all">
+              <TabsList className="grid w-full grid-cols-3 max-[480px]:grid-cols-1 max-[480px]:h-full">
+                <TabsTrigger className="cursor-pointer w-full" value="all">
                   Все задачи
                 </TabsTrigger>
-                <TabsTrigger className="cursor-pointer" value="active">
+                <TabsTrigger className="cursor-pointer w-full" value="active">
                   Невыполненные
                 </TabsTrigger>
-                <TabsTrigger className="cursor-pointer" value="completed">
+                <TabsTrigger className="cursor-pointer w-full" value="completed">
                   Выполненные
                 </TabsTrigger>
               </TabsList>
